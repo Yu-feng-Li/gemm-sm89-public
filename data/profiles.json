@@ -67,5 +67,113 @@
         }
       ]
     }
-  ]
+  ],
+  "release_ncu": {
+    "commit": "bbda8d47a8f30f908ef1d5059fb83d0e2e115be1",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "driver": "580.178.04",
+    "tool": "Version 2023.2.0.0 (build 32895467) (public-release)",
+    "replay": "application",
+    "clock_control": "none",
+    "cache_control": "none",
+    "warmup_calls": 20,
+    "profiled_direct_calls_per_case": 1,
+    "seed": 823,
+    "reports": [
+      {
+        "shape": [
+          32,
+          1024,
+          5120
+        ],
+        "backend": "cute",
+        "validation_passed": true,
+        "report_sha256": "c0e76d75cdbc0d650dffbe27451bb3fe600c0cf91247ceb6ea9a3158bc141efd",
+        "metrics_csv_sha256": "11288b2fe524d433e174d2fab4cf7df5f20bcdfb333ccd009cf26a08b261d9df",
+        "kernels": [
+          {
+            "kernel": "kernel_cutlass_tf32_kernel_tensorptrf32gmemalign16o323201651201320_tensorptrf32gmemalign16o10243201611024327680_tensorptrf32gmemalign16o321024161024132768_TiledCopy_TilerMN161161_TVLayout_0",
+            "launch__grid_size": 256,
+            "launch__registers_per_thread": 96,
+            "smsp__inst_executed_pipe_tensor.sum": 163840,
+            "dram__bytes_read.sum": 0
+          },
+          {
+            "kernel": "kernel_cutlass_reduce_partitions_tensorptrf32gmemalign16o3276816132768_tensorptrf32gmemalign16o327681_32768_16_1",
+            "launch__grid_size": 128,
+            "launch__registers_per_thread": 38,
+            "smsp__inst_executed_pipe_tensor.sum": 0,
+            "dram__bytes_read.sum": 0
+          }
+        ]
+      },
+      {
+        "shape": [
+          32,
+          1024,
+          5120
+        ],
+        "backend": "cublas",
+        "validation_passed": true,
+        "report_sha256": "61c8240501f54343307271a955beacd1d1c703dd9c60f503de7feab8deaa1f2c",
+        "metrics_csv_sha256": "645202053e7d6aa8f32f8b7878996a4bd3b636548fa7dd591df0589029b35af1",
+        "kernels": [
+          {
+            "kernel": "void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_64x128_32x3_nn_align4>(T1::Params)",
+            "launch__grid_size": 128,
+            "launch__registers_per_thread": 164,
+            "smsp__inst_executed_pipe_tensor.sum": 655360,
+            "dram__bytes_read.sum": 0
+          },
+          {
+            "kernel": "void splitKreduce_kernel<(int)32, (int)16, int, float, float, float, float, (bool)1, (bool)0, (bool)0>(cublasSplitKParams<T6>, const T4 *, const T5 *, T5 *, const T6 *, const T6 *, const T7 *, const T4 *, T7 *, void *, long, T6 *, int *)",
+            "launch__grid_size": 64,
+            "launch__registers_per_thread": 44,
+            "smsp__inst_executed_pipe_tensor.sum": 0,
+            "dram__bytes_read.sum": 0
+          }
+        ]
+      },
+      {
+        "shape": [
+          4096,
+          4096,
+          4096
+        ],
+        "backend": "cute",
+        "validation_passed": true,
+        "report_sha256": "4b86e72b9a1b7dfa702f470f25da285e061427500e5c22b06df7e42e8d4c8f77",
+        "metrics_csv_sha256": "3ac0f10399353df581b21ca9ef7950d748c54236dd6f43f53ad85c5f819ffe61",
+        "kernels": [
+          {
+            "kernel": "kernel_cutlass_tf32_kernel_tensorptrf32gmemalign16o4096409614096116777216_tensorptrf32gmemalign16o4096409611409616777216_tensorptrf32gmemalign16o4096409614096116777216_TiledCopy_TilerMN32_0",
+            "launch__grid_size": 512,
+            "launch__registers_per_thread": 254,
+            "smsp__inst_executed_pipe_tensor.sum": 67108864,
+            "dram__bytes_read.sum": 250722560
+          }
+        ]
+      },
+      {
+        "shape": [
+          4096,
+          4096,
+          4096
+        ],
+        "backend": "cublas",
+        "validation_passed": true,
+        "report_sha256": "3246e32691f384c034c2f50ebb80acd77a6744081379b22cab5c5bb3a5b4bfa0",
+        "metrics_csv_sha256": "cd7c07fd93f0258f69efbca21dff654871f2ec5f2bc0c6f4372c8e854bca8011",
+        "kernels": [
+          {
+            "kernel": "void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_256x128_16x3_nn_align4>(T1::Params)",
+            "launch__grid_size": 512,
+            "launch__registers_per_thread": 226,
+            "smsp__inst_executed_pipe_tensor.sum": 67108864,
+            "dram__bytes_read.sum": 252299392
+          }
+        ]
+      }
+    ]
+  }
 }

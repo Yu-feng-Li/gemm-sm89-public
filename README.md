@@ -34,6 +34,10 @@ An earlier RTX 4090 sweep at `3ba7f33` rechecked 54 cases. These hot-input examp
 | 128×12288×5120 | 279.86 | 280.46 | 1.002× |
 | 128×5120×17408 | 474.88 | 422.48 | 0.890× |
 
-On that revision, Nsight Systems measured one hot 32×1024×5120 call with 9.247 µs for the partial products and 1.664 µs for reduction (15.3% of combined kernel time). For 4096³, Nsight Compute recorded 67,108,864 TF32 HMMA warp instructions for both CuTe and cuBLAS, with 254 and 226 registers per thread respectively. These captures describe the earlier kernels.
+## Kernel profile
+
+Nsight Compute 2023.2 profiled one direct call after 20 warmups per backend, with cache flushing disabled. For 32×1024×5120, both backends launched compute and reduction kernels. The compute kernel executed 163,840 tensor-pipe instructions for CuTe and 655,360 for cuBLAS. NCU recorded zero DRAM read bytes across both kernels in each capture.
+
+For 4096³, both backends executed 67,108,864 tensor-pipe instructions across 512 thread blocks. CuTe used 254 registers per thread and cuBLAS used 226. Per-kernel counters are in `data/profiles.json`. The latency tables use separate, unprofiled CUDA Graph runs.
 
 Original project code is MIT licensed. See `NOTICE` for third-party attribution.
