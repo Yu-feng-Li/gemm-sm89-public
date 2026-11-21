@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+# Accept the previous fixed-suite command as an alias.
+if [[ ${1:-} == tf32 ]]; then shift; fi
+if [[ ${1:-} == bench || ${1:-} == verify ]]; then shift; fi
+if [[ ${1:-} == main ]]; then shift; fi
+if [[ ! -x "$root/.venv/bin/python" ]]; then
+    echo 'Run bash scripts/setup.sh first.' >&2
+    exit 1
+fi
+exec "$root/.venv/bin/python" "$root/bench/benchmark.py" "$@"

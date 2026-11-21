@@ -1,0 +1,71 @@
+{
+  "commit": "3ba7f33f94804fcec3b9e545361fec30a4a8efec",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "driver": "580.178.04",
+  "ncu_version": "Version 2023.2.0.0 (build 32895467) (public-release)",
+  "nsys_version": "NVIDIA Nsight Systems version 2026.6.1.251-266139333969v0",
+  "ncu": [
+    {
+      "original_report_id": "runs/profiles/ncu/square-hot-auto.ncu-rep",
+      "report_sha256": "6e71ad914106a9b92bd652f2a1a4cdd09c18a45487e3a62f77f9debde7e20a68",
+      "raw_csv_sha256": "e3256959f3ee35ab4192bd8a985eb69399f457132f7d28ecbd997bc316edc1b7",
+      "shape": "4096x4096x4096",
+      "cache": "hot",
+      "method": "auto",
+      "selected_method": "dsl_wide_k32",
+      "replay": "kernel",
+      "cache_control": "all",
+      "kernel": "kernel_cutlass_tf32_kernel_tensorptrf32gmemalign16o4096409614096116777216_tensorptrf32gmemalign16o4096409611409616777216_tensorptrf32gmemalign16o4096409614096116777216_TiledCopy_TilerMN32_0",
+      "sass_csv_sha256": "ee0dc8375e8ea07fee7db14fa167a4f9764347bbfbc2275f447648288e33bad3",
+      "registers_per_thread": 254,
+      "hmma_tf32_static_instruction_sites": 128,
+      "hmma_tf32_warp_executions": 67108864,
+      "tensor_pipe_pct_of_peak_sustained_elapsed": 48.81
+    },
+    {
+      "original_report_id": "runs/profiles/ncu/square-hot-cublas.ncu-rep",
+      "report_sha256": "5da1424fc956c33e80b4198b22d432f7e0117132e624e84881d9234190d0c9df",
+      "raw_csv_sha256": "dcf7a5c8c49fe997693f1686eb81f32ba198502fc4ddd973c5fcf81d99a2c5da",
+      "shape": "4096x4096x4096",
+      "cache": "hot",
+      "method": "cublas",
+      "selected_method": "cublas",
+      "replay": "kernel",
+      "cache_control": "all",
+      "kernel": "void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_256x128_16x3_nn_align4>(T1::Params)",
+      "sass_csv_sha256": "e6a3f8daaf4c70c723576fe98640e7c783435adc887f3bed4e59f86c5740908d",
+      "registers_per_thread": 226,
+      "hmma_tf32_static_instruction_sites": 64,
+      "hmma_tf32_warp_executions": 67108864,
+      "tensor_pipe_pct_of_peak_sustained_elapsed": 48.82
+    }
+  ],
+  "nsys": [
+    {
+      "original_report_id": "runs/profiles/small-hot.nsys-rep",
+      "report_sha256": "98b219485d8c10764949745672612427aad48c87f92ceffa5990031e57a6f2b1",
+      "stats_csv_sha256": "9d4ba1c709eaeaab60e1a7f1b68d5ea5f0b92a2fc3818842ec2cc491bb5dfbb4",
+      "shape": "32x1024x5120",
+      "method": "auto",
+      "cache": "hot",
+      "selected_method": "dsl_32x64_split16",
+      "weight_copies": 1,
+      "kernels": [
+        {
+          "phase": "compute",
+          "kernel": "kernel_cutlass_tf32_kernel_tensorptrf32gmemalign16o323201651201320_tensorptrf32gmemalign16o10243201611024327680_tensorptrf32gmemalign16o321024161024132768_TiledCopy_TilerMN161161_TVLayout_0",
+          "instances": 1,
+          "total_ns": 9247,
+          "median_ns": 9247
+        },
+        {
+          "phase": "reduce",
+          "kernel": "kernel_cutlass_reduce_partitions_tensorptrf32gmemalign16o3276816132768_tensorptrf32gmemalign16o327681_32768_16_1",
+          "instances": 1,
+          "total_ns": 1664,
+          "median_ns": 1664
+        }
+      ]
+    }
+  ]
+}

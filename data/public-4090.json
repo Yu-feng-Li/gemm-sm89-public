@@ -1,0 +1,1528 @@
+{
+  "schema": 1,
+  "target": "main",
+  "argv": [
+    "bench",
+    "main",
+    "--rounds",
+    "12",
+    "--out",
+    "runs/main"
+  ],
+  "provenance": {
+    "commit": "3ba7f33f94804fcec3b9e545361fec30a4a8efec",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "cuda_driver_api": 13000,
+    "nvidia_driver": "580.178.04",
+    "python": "3.13.5",
+    "packages": {
+      "cuda-bindings": "12.9.5",
+      "numpy": "2.5.5",
+      "nvidia-cutlass-dsl": "4.8.1",
+      "triton": "3.7.1"
+    },
+    "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Tue_Jun_13_19:16:58_PDT_2023\nCuda compilation tools, release 12.2, V12.2.91\nBuild cuda_12.2.r12.2/compiler.32965470_0",
+    "cutlass_cpp": "2c85f497547eb441f0fe80bfb0fb2e6f9add1719",
+    "dispatch_sha256": "490f86a63b5d84618cbec9a520ff0217899dad63737a5ea42aae5f93a2c1dcd7",
+    "dispatch_fingerprint": {
+      "sources": {
+        "src/cute/tf32_gemm.py": "4ca6e0baedba049ab2a794dbb7c6ec8f36615cc0f670c74b0dcf4da6148c1154",
+        "src/cute/tf32_config.py": "97afb13feac8d0bcfa85aaeb025f168df922d160c1cc31e62595aac9411765ed",
+        "src/cute/tf32_dispatch.py": "c8617391f78fffe983d211faac91ac9cc7141b1a0a72d18e0bfe89e6f448466c",
+        "src/cute/gpu.py": "742eaa3620473cc75dbcbd601aa9e27c09bfdf461364deaa52141ea755ee49f1"
+      },
+      "cutlass_dsl": "4.8.1",
+      "cuda_bindings": "12.9.5"
+    },
+    "source_sha256": {
+      "gemm": "d8af424f730ff59522eb4c8f1dccaeab4c3f9ea19826206d373890b27ebccb9e",
+      "bench/benchmark.py": "a50572e2edbf23cdf5db0219774a4b33918c24e9b2c3e271b685a04f86372b13",
+      "bench/harness.py": "e372d47fd23278214cdecb26b659af89f73e9da4854f55a09618012ef2421e5a",
+      "bench/tf32_backends.cu": "da6ee0fa0fc4633d76d7eec3a6bc2942b4656e392af8d114d90293b44fddf5c5",
+      "bench/cutlass_tf32.cuh": "1ceaffbf4b366c1180d6194dc85b4d18fc917cce41fffb59eb9440f860117eff",
+      "bench/tf32_triton.py": "9eeed6cd5399c6e82b5d34ed54c4443332fc948c0e766372034ecd7af3d4aa05",
+      "src/cute/tf32_api.py": "ddc37550c715403ba7f9f0e69fced89c5489d914f83ce7e45fc90cc7ffae5dce",
+      "build/libtf32_backends.so": "eb1415147f7d352e2de2d3ba54902b6b0dcf4d65ee049ea4d7ebe178f35ba854"
+    },
+    "tracked_files_modified": false
+  },
+  "cases": [
+    {
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "cache": "hot",
+      "l2_bytes": 75497472,
+      "weight_copies": 1,
+      "weight_set_bytes": 67108864,
+      "roles": {
+        "cute": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "auto",
+          "config": {
+            "requested_method": "auto",
+            "shape": [
+              4096,
+              4096,
+              4096
+            ],
+            "cache_policy": "hot",
+            "dispatch_hit": true,
+            "evidence": "data/reference.json",
+            "selected_method": "dsl_wide_k32",
+            "tile": [
+              128,
+              256,
+              32
+            ],
+            "warps": [
+              2,
+              4,
+              1
+            ],
+            "stages": 2,
+            "split": 1,
+            "schedule": "default",
+            "raster_group": 0,
+            "raster_axis": "N",
+            "cache_all": false,
+            "output_ctas": 512,
+            "compute_ctas": 512,
+            "fill_ratio": 1.0,
+            "reason": "frozen_exact_shape",
+            "evidence_case": "4096x4096x4096/hot-32mib",
+            "prepare_seconds": 0.0009844549931585789
+          },
+          "median_us": 1588.3520245552063,
+          "min_us": 1571.2000131607056,
+          "max_us": 1717.7599668502808,
+          "tflops": 86.5292777339379,
+          "paired_speedup": 0.9993647143211943,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            1716.7359590530396,
+            1717.4839973449707,
+            1716.7359590530396,
+            1571.2000131607056,
+            1588.7360572814941,
+            1572.7360248565674,
+            1587.8599882125854,
+            1575.3240585327148,
+            1587.9679918289185,
+            1589.6079540252686,
+            1573.6639499664307,
+            1717.7599668502808
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.00789642333984375,
+            "max_relative_l2": 0.00026142568408502184
+          }
+        },
+        "cublas": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cublas",
+          "config": {
+            "api": "FAST_TF32",
+            "prepare_seconds": 1.2950040400028229e-05
+          },
+          "median_us": 1612.3639941215515,
+          "min_us": 1571.22004032135,
+          "max_us": 1716.096043586731,
+          "tflops": 85.24064911712415,
+          "paired_speedup": 1.0,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            1713.4079933166504,
+            1713.7919664382935,
+            1716.096043586731,
+            1623.4480142593384,
+            1601.2799739837646,
+            1571.3239908218384,
+            1650.5600214004517,
+            1591.6520357131958,
+            1591.2959575653076,
+            1573.367953300476,
+            1571.22004032135,
+            1714.0480279922485
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.00789642333984375,
+            "max_relative_l2": 0.00026142568408502184
+          }
+        },
+        "cublaslt_default": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_0",
+          "config": {
+            "index": 0,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 24,
+            "split": 1,
+            "reduction": 0,
+            "stages": 3,
+            "swizzle": 0,
+            "prepare_seconds": 2.3008324205875397e-06
+          },
+          "median_us": 1626.688003540039,
+          "min_us": 1571.1040496826172,
+          "max_us": 1717.5040245056152,
+          "tflops": 84.49005167118828,
+          "paired_speedup": 1.0000763689320018,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            1717.5040245056152,
+            1713.4079933166504,
+            1713.1520509719849,
+            1642.240047454834,
+            1611.1359596252441,
+            1571.1040496826172,
+            1657.6000452041626,
+            1573.248028755188,
+            1571.3239908218384,
+            1578.879952430725,
+            1571.2000131607056,
+            1713.7720584869385
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.00789642333984375,
+            "max_relative_l2": 0.00026142568408502184
+          }
+        },
+        "cublaslt_tuned": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_1",
+          "config": {
+            "index": 1,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 23,
+            "split": 1,
+            "reduction": 0,
+            "stages": 3,
+            "swizzle": 0,
+            "prepare_seconds": 1.885928213596344e-06
+          },
+          "median_us": 1578.6240100860596,
+          "min_us": 1569.5359706878662,
+          "max_us": 1713.763952255249,
+          "tflops": 87.06250037620258,
+          "paired_speedup": 1.00124142307041,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            1708.799958229065,
+            1713.5039567947388,
+            1713.7559652328491,
+            1621.6360330581665,
+            1570.6520080566406,
+            1571.7120170593262,
+            1569.5359706878662,
+            1570.5519914627075,
+            1570.8160400390625,
+            1585.536003112793,
+            1570.8160400390625,
+            1713.763952255249
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.00789642333984375,
+            "max_relative_l2": 0.00026142568408502184
+          }
+        },
+        "cutlass": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cutlass_default",
+          "config": {
+            "tile_id": 256,
+            "tile_nmk": [
+              256,
+              128,
+              16
+            ],
+            "split": 1,
+            "prepare_seconds": 5.354592576622963e-05
+          },
+          "median_us": 1630.0060153007507,
+          "min_us": 1566.9399499893188,
+          "max_us": 1710.976004600525,
+          "tflops": 84.31806519845344,
+          "paired_speedup": 1.0023915486329764,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            1709.9519968032837,
+            1710.976004600525,
+            1709.436058998108,
+            1645.292043685913,
+            1614.3159866333008,
+            1566.9399499893188,
+            1646.3359594345093,
+            1614.7199869155884,
+            1568.76802444458,
+            1567.512035369873,
+            1567.3600435256958,
+            1710.0800275802612
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.00789642333984375,
+            "max_relative_l2": 0.00026142568408502184
+          }
+        },
+        "triton": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "triton_large",
+          "config": {
+            "tile": [
+              64,
+              128,
+              32
+            ],
+            "warps": 4,
+            "stages": 3,
+            "ptx": "triton_large.ptx",
+            "prepare_seconds": 0.3031376169528812
+          },
+          "median_us": 1665.7877053533282,
+          "min_us": 1660.159945487976,
+          "max_us": 1784.9736894880023,
+          "tflops": 82.50688429882966,
+          "paired_speedup": 0.9610987660288348,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            1776.1280536651611,
+            1781.613758632115,
+            1782.1805136544365,
+            1660.2879762649536,
+            1662.2720445905413,
+            1665.7554081508092,
+            1660.159945487976,
+            1663.5611397879463,
+            1663.414818899972,
+            1665.8200025558472,
+            1670.4365866524834,
+            1784.9736894880023
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.00789642333984375,
+            "max_relative_l2": 0.00026142568408502184
+          }
+        }
+      },
+      "library_versions": {
+        "cublas_api": 120201,
+        "cublaslt_api": 120201
+      },
+      "source_artifact_sha256": {
+        "rounds.jsonl": "32391f7dfd6f5a527c9cbd3c5eef68e245b014bf0fe60f1d07de2c8c497e27f7",
+        "reference.jsonl": "e89d68f88edcf6add571e57edbae41e7eea26a45cbfbdc1ed7151ea37a16e21a",
+        "validation.jsonl": "e88ec0d45d75fdc390a0cf79d89a2ed37c6a76ce52e99c26a2c480da7f6ebd45",
+        "graph-validation.jsonl": "6558d28a9ca8ee533b28d368c4e9c2a643c937374a8d680ca1fd00b69ec2d378",
+        "screen.jsonl": "7edda430722eecf82debd6ec1ab67dc83856add8aba0aa88212e9511da59a1eb"
+      },
+      "rejected_round_attempts": 0,
+      "accepted_clock_pairs_mhz": [
+        [
+          2520,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ]
+      ],
+      "accepted_seed_order": [
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019
+      ]
+    },
+    {
+      "shape": [
+        32,
+        1024,
+        5120
+      ],
+      "cache": "hot",
+      "l2_bytes": 75497472,
+      "weight_copies": 1,
+      "weight_set_bytes": 20971520,
+      "roles": {
+        "cute": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "auto",
+          "config": {
+            "requested_method": "auto",
+            "shape": [
+              32,
+              1024,
+              5120
+            ],
+            "cache_policy": "hot",
+            "dispatch_hit": true,
+            "evidence": "data/reference.json",
+            "selected_method": "dsl_32x64_split16",
+            "tile": [
+              32,
+              64,
+              16
+            ],
+            "warps": [
+              1,
+              2,
+              1
+            ],
+            "stages": 3,
+            "split": 16,
+            "schedule": "default",
+            "raster_group": 0,
+            "raster_axis": "N",
+            "cache_all": false,
+            "output_ctas": 16,
+            "compute_ctas": 256,
+            "fill_ratio": 1.0,
+            "reason": "frozen_exact_shape",
+            "evidence_case": "32x1024x5120/hot-32mib",
+            "prepare_seconds": 0.0007471030112355947
+          },
+          "median_us": 9.284104000438344,
+          "min_us": 9.251823673000583,
+          "max_us": 10.071729684804941,
+          "tflops": 36.14180969796951,
+          "paired_speedup": 2.0581504968807467,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            10.071729684804941,
+            9.255895986185445,
+            9.253236225673131,
+            9.692613180581626,
+            9.251823673000583,
+            9.3017763905711,
+            9.3017763905711,
+            9.287148017387885,
+            9.281808060485048,
+            9.280394888543464,
+            9.28639994039164,
+            9.276508975338626
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006453394889831543,
+            "max_relative_l2": 0.00026234767998902186
+          }
+        },
+        "cublas": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cublas",
+          "config": {
+            "api": "FAST_TF32",
+            "prepare_seconds": 4.4959597289562225e-06
+          },
+          "median_us": 19.115322675460426,
+          "min_us": 19.031958702283028,
+          "max_us": 20.80689210158128,
+          "tflops": 17.55368327790563,
+          "paired_speedup": 1.0,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            20.80689210158128,
+            19.031958702283028,
+            19.035896888146034,
+            19.037210024320164,
+            19.031958702283028,
+            19.122543090429062,
+            19.125169362777317,
+            19.126482498951447,
+            19.112040446354793,
+            19.118604904566055,
+            19.127794412466194,
+            19.112040446354793
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006459474563598633,
+            "max_relative_l2": 0.00026234781581592373
+          }
+        },
+        "cublaslt_default": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_0",
+          "config": {
+            "index": 0,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 17,
+            "split": 8,
+            "reduction": 2,
+            "stages": 9,
+            "swizzle": 0,
+            "prepare_seconds": 1.341104507446289e-06
+          },
+          "median_us": 19.078564032530174,
+          "min_us": 18.99126126216008,
+          "max_us": 20.772757897010216,
+          "tflops": 17.587503935195304,
+          "paired_speedup": 1.0019306036316755,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            20.772757897010216,
+            18.99257439833421,
+            18.99126126216008,
+            18.99388753450834,
+            18.99388753450834,
+            18.997743802192883,
+            19.089723244691505,
+            19.073969278580105,
+            19.083158786480244,
+            19.0857850588285,
+            19.100225888765774,
+            19.084471922654373
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006459474563598633,
+            "max_relative_l2": 0.00026234781581592373
+          }
+        },
+        "cublaslt_tuned": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_1",
+          "config": {
+            "index": 1,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 15,
+            "split": 8,
+            "reduction": 2,
+            "stages": 12,
+            "swizzle": 0,
+            "prepare_seconds": 1.3529788702726364e-06
+          },
+          "median_us": 11.912812952135429,
+          "min_us": 11.876721460311138,
+          "max_us": 12.981298321583232,
+          "tflops": 28.166674096889274,
+          "paired_speedup": 1.6034611350339167,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            12.981298321583232,
+            11.880918409003586,
+            11.880891831194768,
+            11.881652425547115,
+            11.87756100638968,
+            11.876721460311138,
+            11.935475615204357,
+            11.921835727378971,
+            11.914491653442383,
+            11.91868860213483,
+            11.913652107363841,
+            11.911973796907018
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006459474563598633,
+            "max_relative_l2": 0.00026234781581592373
+          }
+        },
+        "cutlass": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cutlass_split8",
+          "config": {
+            "tile_id": 64,
+            "tile_nmk": [
+              64,
+              64,
+              16
+            ],
+            "split": 8,
+            "prepare_seconds": 2.224789932370186e-05
+          },
+          "median_us": 13.078856893948146,
+          "min_us": 13.032228606087822,
+          "max_us": 14.31588615689959,
+          "tflops": 25.65547759416675,
+          "paired_speedup": 1.4609311115388026,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            14.31588615689959,
+            13.032228606087822,
+            13.038628441946846,
+            13.043885571616036,
+            13.041314056941442,
+            13.065143142427717,
+            13.084342650004796,
+            13.087999820709229,
+            13.07702830859593,
+            13.087999820709229,
+            13.088914326259069,
+            13.080685479300362
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006459474563598633,
+            "max_relative_l2": 0.00026234781581592373
+          }
+        },
+        "triton": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "triton_small",
+          "config": {
+            "tile": [
+              16,
+              64,
+              32
+            ],
+            "warps": 4,
+            "stages": 3,
+            "ptx": "triton_small.ptx",
+            "prepare_seconds": 0.34044553991407156
+          },
+          "median_us": 34.226036071777344,
+          "min_us": 34.0945460579612,
+          "max_us": 37.21663951873779,
+          "tflops": 9.803773925099335,
+          "paired_speedup": 0.5582424297669528,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            37.21663951873779,
+            34.0945460579612,
+            34.10596414045854,
+            34.12192106246948,
+            34.10850871693004,
+            34.271272745999426,
+            34.298880100250244,
+            34.25694595683705,
+            34.217890826138586,
+            34.2143988609314,
+            34.250471808693625,
+            34.2341813174161
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006391942501068115,
+            "max_relative_l2": 0.0002627921219709425
+          }
+        }
+      },
+      "library_versions": {
+        "cublas_api": 120201,
+        "cublaslt_api": 120201
+      },
+      "source_artifact_sha256": {
+        "rounds.jsonl": "bad64760621b35128b028b0d73deeed81419d5ce1580871147038261a5da5e06",
+        "reference.jsonl": "0292f2ad0e29c6df975c42615e59f620d50da4b7768547a61bea0808f6c2e6e1",
+        "validation.jsonl": "ab0b0867869f37dba8dc23f465a31afb383940252a102164df7d2e6bdd07dc21",
+        "graph-validation.jsonl": "ba528d7701490211b36f443a2fee842d17b78e3136041e7e4ab26d8987cab50b",
+        "screen.jsonl": "9037e0907ef23dd9611abb61fd2337fa440ae5331ba605cc0a471ab2030799fe"
+      },
+      "rejected_round_attempts": 2,
+      "accepted_clock_pairs_mhz": [
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2745,
+          10251
+        ]
+      ],
+      "accepted_seed_order": [
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019
+      ]
+    },
+    {
+      "shape": [
+        32,
+        1024,
+        5120
+      ],
+      "cache": "rotate",
+      "l2_bytes": 75497472,
+      "weight_copies": 15,
+      "weight_set_bytes": 314572800,
+      "roles": {
+        "cute": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "auto",
+          "config": {
+            "requested_method": "auto",
+            "shape": [
+              32,
+              1024,
+              5120
+            ],
+            "cache_policy": "rotate",
+            "dispatch_hit": true,
+            "evidence": "data/reference.json",
+            "selected_method": "dsl_16x32_split8",
+            "tile": [
+              16,
+              32,
+              16
+            ],
+            "warps": [
+              1,
+              1,
+              1
+            ],
+            "stages": 3,
+            "split": 8,
+            "schedule": "default",
+            "raster_group": 0,
+            "raster_axis": "N",
+            "cache_all": false,
+            "output_ctas": 64,
+            "compute_ctas": 512,
+            "fill_ratio": 1.0,
+            "reason": "frozen_exact_shape",
+            "evidence_case": "32x1024x5120/rotate-32mib",
+            "prepare_seconds": 0.0008252188563346863
+          },
+          "median_us": 24.6508797009786,
+          "min_us": 24.64426736983042,
+          "max_us": 24.890027046203613,
+          "tflops": 13.611859863430329,
+          "paired_speedup": 1.0777884623951817,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            24.871253967285156,
+            24.647517431349982,
+            24.655733108520508,
+            24.890027046203613,
+            24.64543448554145,
+            24.65109348297119,
+            24.650665918986004,
+            24.64426736983042,
+            24.64735984802246,
+            24.659627278645832,
+            24.65401906815786,
+            24.649386405944824
+          ],
+          "validation_summary": {
+            "passed": 6,
+            "failed": 0,
+            "max_abs": 0.007225990295410156,
+            "max_relative_l2": 0.0002640476377742457
+          }
+        },
+        "cublas": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cublas",
+          "config": {
+            "api": "FAST_TF32",
+            "prepare_seconds": 4.159985110163689e-06
+          },
+          "median_us": 26.57010597095155,
+          "min_us": 26.553937008506374,
+          "max_us": 26.97072280080695,
+          "tflops": 12.628640637219982,
+          "paired_speedup": 1.0,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            26.97072280080695,
+            26.573698144210013,
+            26.577291990581312,
+            26.55573393169202,
+            26.562919951321785,
+            26.5683090477659,
+            26.553937008506374,
+            26.57010597095155,
+            26.55573393169202,
+            26.57010597095155,
+            26.57010597095155,
+            26.580884163839777
+          ],
+          "validation_summary": {
+            "passed": 6,
+            "failed": 0,
+            "max_abs": 0.007225990295410156,
+            "max_relative_l2": 0.0002640476377742457
+          }
+        },
+        "cublaslt_default": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_0",
+          "config": {
+            "index": 0,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 17,
+            "split": 8,
+            "reduction": 2,
+            "stages": 9,
+            "swizzle": 0,
+            "prepare_seconds": 1.6961712390184402e-06
+          },
+          "median_us": 26.537711996781198,
+          "min_us": 26.52698985317297,
+          "max_us": 26.950568483586895,
+          "tflops": 12.644056128150712,
+          "paired_speedup": 1.0009836446575726,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            26.950568483586895,
+            26.534175872802734,
+            26.52698985317297,
+            26.534175872802734,
+            26.5376559475012,
+            26.534175872802734,
+            26.539564969246847,
+            26.535971122875548,
+            26.5377680460612,
+            26.562919951321785,
+            26.54315714250531,
+            26.54315714250531
+          ],
+          "validation_summary": {
+            "passed": 6,
+            "failed": 0,
+            "max_abs": 0.007225990295410156,
+            "max_relative_l2": 0.0002640476377742457
+          }
+        },
+        "cublaslt_tuned": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_4",
+          "config": {
+            "index": 4,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 15,
+            "split": 4,
+            "reduction": 2,
+            "stages": 6,
+            "swizzle": 0,
+            "prepare_seconds": 1.5711411833763123e-06
+          },
+          "median_us": 25.613493124643963,
+          "min_us": 25.60512065887451,
+          "max_us": 25.944587389628094,
+          "tflops": 13.100295159552322,
+          "paired_speedup": 1.0372357951510716,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            25.944587389628094,
+            25.610079765319824,
+            25.60512065887451,
+            25.75679937998454,
+            25.60853322347005,
+            25.615359942118328,
+            25.60512065887451,
+            25.611626307169598,
+            25.60853322347005,
+            25.625440279642742,
+            25.617067019144695,
+            25.6221866607666
+          ],
+          "validation_summary": {
+            "passed": 6,
+            "failed": 0,
+            "max_abs": 0.007250785827636719,
+            "max_relative_l2": 0.0002640747210905797
+          }
+        },
+        "cutlass": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cutlass_split8",
+          "config": {
+            "tile_id": 64,
+            "tile_nmk": [
+              64,
+              64,
+              16
+            ],
+            "split": 8,
+            "prepare_seconds": 1.7903046682476997e-05
+          },
+          "median_us": 25.538560549418133,
+          "min_us": 25.524907112121582,
+          "max_us": 25.85429350535075,
+          "tflops": 13.13873267644464,
+          "paired_speedup": 1.0404960083582158,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            25.85429350535075,
+            25.538560549418133,
+            25.524907112121582,
+            25.540107091267902,
+            25.541547139485676,
+            25.531733830769856,
+            25.541812578837078,
+            25.5351463953654,
+            25.538560549418133,
+            25.536853472391766,
+            25.538560549418133,
+            25.53002675374349
+          ],
+          "validation_summary": {
+            "passed": 6,
+            "failed": 0,
+            "max_abs": 0.007225990295410156,
+            "max_relative_l2": 0.0002640476377742457
+          }
+        },
+        "triton": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "triton_small",
+          "config": {
+            "tile": [
+              16,
+              64,
+              32
+            ],
+            "warps": 4,
+            "stages": 3,
+            "ptx": "triton_small.ptx",
+            "prepare_seconds": 0.2928303850349039
+          },
+          "median_us": 45.49197572650331,
+          "min_us": 45.44698252822413,
+          "max_us": 47.40809816302675,
+          "tflops": 7.375901236237453,
+          "paired_speedup": 0.5838836604028779,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            47.40809816302675,
+            45.47801162257339,
+            45.45008341471354,
+            47.37328616055575,
+            45.549381140506625,
+            45.4935276147091,
+            45.44698252822413,
+            45.471806959672406,
+            45.490423838297524,
+            45.59282534050219,
+            45.549381140506625,
+            45.48111539898497
+          ],
+          "validation_summary": {
+            "passed": 6,
+            "failed": 0,
+            "max_abs": 0.007334709167480469,
+            "max_relative_l2": 0.0002645343604195844
+          }
+        }
+      },
+      "library_versions": {
+        "cublas_api": 120201,
+        "cublaslt_api": 120201
+      },
+      "source_artifact_sha256": {
+        "rounds.jsonl": "bfc4c8052a3111dff8aa5853292d37a6111c1ebb579851b45d04ddcdf6c7755f",
+        "reference.jsonl": "b951e8581a359fc383002da664ece1722195ee8e4e7d91ea23e63506103c5cf6",
+        "validation.jsonl": "ebe7c3e784d1f09ad65583a83580f703cac128af85a1cf20eb74b50d3bf344ee",
+        "graph-validation.jsonl": "05d114ce11988c3ed71af94d0398944a242847285353736c82695af9cff7cff4",
+        "screen.jsonl": "9901f826b79aaa90d109948c74f13eff9bc3f1b25ed29f72fddc6199cd570d79"
+      },
+      "rejected_round_attempts": 0,
+      "accepted_clock_pairs_mhz": [
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ]
+      ],
+      "accepted_seed_order": [
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019
+      ]
+    },
+    {
+      "shape": [
+        33,
+        1024,
+        5120
+      ],
+      "cache": "hot",
+      "l2_bytes": 75497472,
+      "weight_copies": 1,
+      "weight_set_bytes": 20971520,
+      "roles": {
+        "cute": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "auto",
+          "config": {
+            "requested_method": "auto",
+            "shape": [
+              33,
+              1024,
+              5120
+            ],
+            "cache_policy": "hot",
+            "dispatch_hit": false,
+            "evidence": null,
+            "selected_method": "dsl_wide",
+            "tile": [
+              128,
+              256,
+              16
+            ],
+            "warps": [
+              2,
+              4,
+              1
+            ],
+            "stages": 3,
+            "split": 1,
+            "schedule": "default",
+            "raster_group": 0,
+            "raster_axis": "N",
+            "cache_all": false,
+            "output_ctas": 4,
+            "compute_ctas": 4,
+            "fill_ratio": 0.2578125,
+            "reason": "unseen_shape_or_policy",
+            "prepare_seconds": 0.0006521791219711304
+          },
+          "median_us": 258.0565373102824,
+          "min_us": 257.3482672373454,
+          "max_us": 281.1221440633138,
+          "tflops": 1.3409080180903918,
+          "paired_speedup": 0.07394979538734073,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            281.1221440633138,
+            259.06933148701984,
+            257.5189272562663,
+            257.65546162923175,
+            257.3482672373454,
+            258.16747347513837,
+            258.50879351298016,
+            257.6522668202718,
+            257.94560114542645,
+            258.1845283508301,
+            257.587194442749,
+            258.3888053894043
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006970584392547607,
+            "max_relative_l2": 0.000263196088778411
+          }
+        },
+        "cublas": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cublas",
+          "config": {
+            "api": "FAST_TF32",
+            "prepare_seconds": 2.1565938368439674e-05
+          },
+          "median_us": 19.072604131119455,
+          "min_us": 19.041009953147487,
+          "max_us": 20.825234821864537,
+          "tflops": 18.14278100783346,
+          "paired_speedup": 1.0,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            20.825234821864537,
+            19.05165085425744,
+            19.041009953147487,
+            19.04201098850795,
+            19.042461346357296,
+            19.09355740798147,
+            19.1195433480399,
+            19.043774482531425,
+            19.098946922703792,
+            19.10198892865862,
+            19.046399532220303,
+            19.104336437426117
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006933093070983887,
+            "max_relative_l2": 0.0002626810029196245
+          }
+        },
+        "cublaslt_default": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_0",
+          "config": {
+            "index": 0,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 17,
+            "split": 8,
+            "reduction": 2,
+            "stages": 9,
+            "swizzle": 0,
+            "prepare_seconds": 1.7299316823482513e-06
+          },
+          "median_us": 19.062092365362705,
+          "min_us": 18.99913885654547,
+          "max_us": 20.791467030843098,
+          "tflops": 18.152785820551543,
+          "paired_speedup": 1.0019035824301792,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            20.791467030843098,
+            19.008328364445614,
+            18.99913885654547,
+            19.010844495561386,
+            19.000450770060223,
+            19.079220600617237,
+            19.06915505727132,
+            19.004390178582607,
+            19.063466634505833,
+            19.064888689253067,
+            19.060718096219578,
+            19.070031092717098
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006933093070983887,
+            "max_relative_l2": 0.0002626810029196245
+          }
+        },
+        "cublaslt_tuned": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_1",
+          "config": {
+            "index": 1,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 15,
+            "split": 8,
+            "reduction": 2,
+            "stages": 12,
+            "swizzle": 0,
+            "prepare_seconds": 1.3441313058137894e-06
+          },
+          "median_us": 11.872524511618693,
+          "min_us": 11.861482213755123,
+          "max_us": 13.023999759129115,
+          "tflops": 29.145450882107504,
+          "paired_speedup": 1.605055209549273,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            13.023999759129115,
+            11.863291849855516,
+            11.861482213755123,
+            11.862857001168388,
+            11.86497016031234,
+            11.880078862925044,
+            11.862799951008387,
+            11.863291849855516,
+            11.905101869927078,
+            11.90217137336731,
+            11.911134250828477,
+            11.905888260387984
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006933093070983887,
+            "max_relative_l2": 0.0002626810029196245
+          }
+        },
+        "cutlass": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cutlass_split8",
+          "config": {
+            "tile_id": 64,
+            "tile_nmk": [
+              64,
+              64,
+              16
+            ],
+            "split": 8,
+            "prepare_seconds": 2.1001091226935387e-05
+          },
+          "median_us": 13.068799887384687,
+          "min_us": 13.044114623750959,
+          "max_us": 14.317929510976754,
+          "tflops": 26.477571236975084,
+          "paired_speedup": 1.45927224113092,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            14.317929510976754,
+            13.045028277805873,
+            13.049599954060145,
+            13.048972335516238,
+            13.049599954060145,
+            13.092571496963501,
+            13.090133666992188,
+            13.049599954060145,
+            13.087999820709229,
+            13.094149383844114,
+            13.044114623750959,
+            13.089656829833984
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006933093070983887,
+            "max_relative_l2": 0.0002626810029196245
+          }
+        },
+        "triton": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "triton_small",
+          "config": {
+            "tile": [
+              16,
+              64,
+              32
+            ],
+            "warps": 4,
+            "stages": 3,
+            "ptx": "triton_small.ptx",
+            "prepare_seconds": 0.28625195496715605
+          },
+          "median_us": 34.24523635344072,
+          "min_us": 34.20160033486106,
+          "max_us": 37.29919910430908,
+          "tflops": 10.104473405546619,
+          "paired_speedup": 0.5569511707609306,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "paired_samples_us": [
+            37.29919910430908,
+            34.21323732896285,
+            34.2155629938299,
+            34.21112060546875,
+            34.221963448957965,
+            34.276073629205875,
+            34.206719398498535,
+            34.20160033486106,
+            34.275490587407894,
+            34.27328109741211,
+            34.268509257923476,
+            34.28072712638161
+          ],
+          "validation_summary": {
+            "passed": 3,
+            "failed": 0,
+            "max_abs": 0.006970584392547607,
+            "max_relative_l2": 0.000263196088778411
+          }
+        }
+      },
+      "library_versions": {
+        "cublas_api": 120201,
+        "cublaslt_api": 120201
+      },
+      "source_artifact_sha256": {
+        "rounds.jsonl": "9b4a4c51e0ae7fb13bc72446b7c9f5472e1fbb08bed00a38f2d5f9d06a17997f",
+        "reference.jsonl": "278663039156ad315f840cd292d2ab4b1760afe18337831aa8fcfc96ca7bce20",
+        "validation.jsonl": "26a4f24a1107e121e61f2301470e492044e9ea191f391d1cb85dd398c59459b2",
+        "graph-validation.jsonl": "ba528d7701490211b36f443a2fee842d17b78e3136041e7e4ab26d8987cab50b",
+        "screen.jsonl": "82948b48809f62865c48982b37ff1cd1c5a1e4b03e0e552080000a763ec3f266"
+      },
+      "rejected_round_attempts": 1,
+      "accepted_clock_pairs_mhz": [
+        [
+          2520,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ],
+        [
+          2760,
+          10251
+        ]
+      ],
+      "accepted_seed_order": [
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019,
+        823,
+        1008,
+        1019
+      ]
+    }
+  ],
+  "protocol": {
+    "min_event_ms": 10.0,
+    "screen_seed": 707,
+    "confirmation_seeds": [
+      823,
+      1008,
+      1019
+    ],
+    "rounds_per_case": 12,
+    "requested_backends": [
+      "cute",
+      "cublas",
+      "cublaslt",
+      "cutlass",
+      "triton"
+    ],
+    "timing": "unprofiled CUDA Graph events, paired NVML clocks"
+  },
+  "run_id": "public-rtx4090-paired-main-20261121",
+  "recapture": "./gemm tf32 bench main --rounds 12 --out runs/main",
+  "original_public_commit": "b65135a72df3bcd2e2a7b97425630ac648a1ffa2",
+  "acceptance": {
+    "clone": "New local clone installed with empty environment and isolated user home/cache.",
+    "tests_passed": 5,
+    "smoke": "./gemm tf32 bench smoke --backends cute --out runs/smoke",
+    "small": "./gemm tf32 bench 32x1024x5120 --cache hot --workspace-mib 32 --rounds 3 --out runs/small",
+    "fallback": "./gemm tf32 33x1024x5120 823 check auto --workspace-mib 32",
+    "fallback_valid": true,
+    "main_coverage": "All four cases with 12 accepted rounds each."
+  }
+}

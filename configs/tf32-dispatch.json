@@ -1,0 +1,204 @@
+{
+  "schema": 2,
+  "version": "reference-rtx4090",
+  "default_policy": "hot",
+  "fingerprint": {
+    "sources": {
+      "src/cute/tf32_gemm.py": "4ca6e0baedba049ab2a794dbb7c6ec8f36615cc0f670c74b0dcf4da6148c1154",
+      "src/cute/tf32_config.py": "c1ba8fdba761c2b4147fe22599768123c592dfdf17ccbc9cc22b7faaa1e17ed5",
+      "src/cute/tf32_dispatch.py": "efd4c6ec0d809f7810ce60d1d3364b56487b338ba74e6c7f1cf0314d315eb4a7",
+      "src/cute/gpu.py": "cce42802b51f074ff63f1a2d9783a46985330e5b1ebf69010b3c50e87553d622"
+    },
+    "cutlass_dsl": "4.8.1",
+    "cuda_bindings": "12.9.5"
+  },
+  "driver_api": 13000,
+  "dtype": "float32",
+  "layout": "row_major",
+  "shapes": {
+    "32x1024x5120": {
+      "hot": {
+        "method": "dsl_32x64_split16",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_16x32_split8",
+        "evidence": "data/reference.json"
+      }
+    },
+    "1x5120x5120": {
+      "hot": {
+        "method": "dsl_32x64_split2",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_32x64_split2",
+        "evidence": "data/reference.json"
+      }
+    },
+    "1x17408x5120": {
+      "hot": {
+        "method": "dsl_64x128_w1x4",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_64x128_w1x4",
+        "evidence": "data/reference.json"
+      }
+    },
+    "1x5120x17408": {
+      "hot": {
+        "method": "dsl_32x64_split2",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_32x64_split2",
+        "evidence": "data/reference.json"
+      }
+    },
+    "8x5120x5120": {
+      "hot": {
+        "method": "dsl_32x64_split2",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_32x64_split2",
+        "evidence": "data/reference.json"
+      }
+    },
+    "8x17408x5120": {
+      "hot": {
+        "method": "dsl_64x128_w1x4",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_64x128_w1x4",
+        "evidence": "data/reference.json"
+      }
+    },
+    "8x5120x17408": {
+      "hot": {
+        "method": "dsl_32x64_split2",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_32x64_split2",
+        "evidence": "data/reference.json"
+      }
+    },
+    "32x5120x5120": {
+      "hot": {
+        "method": "dsl_32x128_split2",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_32x128_split2",
+        "evidence": "data/reference.json"
+      }
+    },
+    "32x17408x5120": {
+      "hot": {
+        "method": "dsl_wide",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_wide",
+        "evidence": "data/reference.json"
+      }
+    },
+    "32x5120x17408": {
+      "hot": {
+        "method": "dsl_32x128_split2",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_32x128_split2",
+        "evidence": "data/reference.json"
+      }
+    },
+    "128x5120x5120": {
+      "hot": {
+        "method": "dsl_64x128_w1x4",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_64x128_w1x4",
+        "evidence": "data/reference.json"
+      }
+    },
+    "128x17408x5120": {
+      "hot": {
+        "method": "dsl_128x96",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_128x96",
+        "evidence": "data/reference.json"
+      }
+    },
+    "128x5120x17408": {
+      "hot": {
+        "method": "dsl_32x128_split2",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_32x128_split2",
+        "evidence": "data/reference.json"
+      }
+    },
+    "256x256x256": {
+      "hot": {
+        "method": "dsl_32x64",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_32x64",
+        "evidence": "data/reference.json"
+      }
+    },
+    "1024x1024x1024": {
+      "hot": {
+        "method": "dsl_64x128_w1x4__steady_copy",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_64x128_w1x4__steady_copy",
+        "evidence": "data/reference.json"
+      }
+    },
+    "4096x4096x4096": {
+      "hot": {
+        "method": "dsl_wide_k32",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_wide_k32",
+        "evidence": "data/reference.json"
+      }
+    },
+    "128x12288x5120": {
+      "hot": {
+        "method": "dsl_128x96",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_128x96",
+        "evidence": "data/reference.json"
+      }
+    },
+    "512x5120x17408": {
+      "hot": {
+        "method": "dsl_128x160_k32_w8__copy_after",
+        "evidence": "data/reference.json"
+      },
+      "rotate": {
+        "method": "dsl_128x160_k32_w8__copy_after",
+        "evidence": "data/reference.json"
+      }
+    }
+  },
+  "arch": "sm_89",
+  "compute": "ordinary_tf32_f32_accum",
+  "shape_manifest_sha256": "2d721b2c083093402c6150860920dcb2a2c9fc62336115de078005f38b2cf628",
+  "gpu_model": "NVIDIA GeForce RTX 4090"
+}

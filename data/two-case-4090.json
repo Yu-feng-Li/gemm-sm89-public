@@ -1,0 +1,1253 @@
+{
+  "schema": 2,
+  "target": "two-shape",
+  "provenance": {
+    "commit": "a8081f7c5354ba54ecb830eec464924aaea956b8",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "cuda_driver_api": 13000,
+    "nvidia_driver": "580.178.04",
+    "python": "3.13.5",
+    "packages": {
+      "cuda-bindings": "12.9.5",
+      "numpy": "2.5.5",
+      "nvidia-cutlass-dsl": "4.8.1",
+      "triton": "3.7.1"
+    },
+    "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2023 NVIDIA Corporation\nBuilt on Tue_Jun_13_19:16:58_PDT_2023\nCuda compilation tools, release 12.2, V12.2.91\nBuild cuda_12.2.r12.2/compiler.32965470_0",
+    "cutlass_cpp": "2c85f497547eb441f0fe80bfb0fb2e6f9add1719",
+    "dispatch_sha256": "f7778ccb4cc06ecf3d60f631fe31a1449b9bf78bffab7f576cb13a4596eba310",
+    "dispatch_fingerprint": {
+      "sources": {
+        "src/cute/tf32_gemm.py": "4ca6e0baedba049ab2a794dbb7c6ec8f36615cc0f670c74b0dcf4da6148c1154",
+        "src/cute/tf32_config.py": "c1ba8fdba761c2b4147fe22599768123c592dfdf17ccbc9cc22b7faaa1e17ed5",
+        "src/cute/tf32_dispatch.py": "2c10415c5b1e47aadc55f0e163ab1b5169b3fb552cdf2b06c3a3824f8b8b4c86",
+        "src/cute/gpu.py": "742eaa3620473cc75dbcbd601aa9e27c09bfdf461364deaa52141ea755ee49f1"
+      },
+      "cutlass_dsl": "4.8.1",
+      "cuda_bindings": "12.9.5"
+    },
+    "source_sha256": {
+      "gemm": "c4e79f849ad58206321957093e99ad729f4c925e784e9ebef85bbb8d68f73784",
+      "bench/benchmark.py": "088ea329bb6c2f17269e0103877d0dfde46985a036220e77e1012a7f9fc45de6",
+      "bench/harness.py": "738caecffa3d8eabfc8e912e935044223d12e17eba07952fa34fa60ad53c1718",
+      "bench/tf32_backends.cu": "da6ee0fa0fc4633d76d7eec3a6bc2942b4656e392af8d114d90293b44fddf5c5",
+      "bench/cutlass_tf32.cuh": "1ceaffbf4b366c1180d6194dc85b4d18fc917cce41fffb59eb9440f860117eff",
+      "bench/tf32_triton.py": "5f788f9c0b5dd8904773374c5cc92809231b529edc03a00e991ceb5e6a7c58b8",
+      "src/cute/tf32_api.py": "aaf8a158c627123db59d73d896f8a140a6b57a8b102ad1d3f54a77f28a8c4607",
+      "build/libtf32_backends.so": "04c67cb2b21588a7581daa0f04f9d776d0f249f85db47e1dc7b8e4ce7ca2e495"
+    },
+    "tracked_files_modified": true
+  },
+  "cases": [
+    {
+      "shape": [
+        32,
+        1024,
+        5120
+      ],
+      "cache": "hot",
+      "l2_bytes": 75497472,
+      "weight_copies": 1,
+      "weight_set_bytes": 20971520,
+      "roles": {
+        "cute": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "dsl_32x64_split16",
+          "config": {
+            "requested_method": "dsl_32x64_split16",
+            "shape": [
+              32,
+              1024,
+              5120
+            ],
+            "cache_policy": "hot",
+            "dispatch_hit": false,
+            "evidence": null,
+            "selected_method": "dsl_32x64_split16",
+            "tile": [
+              32,
+              64,
+              16
+            ],
+            "warps": [
+              1,
+              2,
+              1
+            ],
+            "stages": 3,
+            "split": 16,
+            "schedule": "default",
+            "raster_group": 0,
+            "raster_axis": "N",
+            "cache_all": false,
+            "output_ctas": 16,
+            "compute_ctas": 256,
+            "fill_ratio": 1.0,
+            "reason": "explicit",
+            "prepare_seconds": 0.0002605719491839409
+          },
+          "median_us": 9.314739782046647,
+          "mean_us": 9.382782752103962,
+          "stddev_us": 0.23066380473334497,
+          "min_us": 9.309983580079797,
+          "max_us": 10.11501200058881,
+          "tflops": 36.02294082833453,
+          "paired_speedup": 2.0462161456927856,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 10.11501200058881
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 9.314133061303032
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 9.309983580079797
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 9.31538834291346
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 9.311999877293905
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 9.309983580079797
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 9.314635220695944
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 9.314844343397352
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 9.321907121841221
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 9.313129677492029
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 9.32906667391459
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 9.323309545647609
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.006999969482421875,
+          "max_relative_l2": 0.00026296969461960277,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "cublas": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cublas",
+          "config": {
+            "api": "FAST_TF32",
+            "prepare_seconds": 5.5960845202207565e-06
+          },
+          "median_us": 19.059200035898307,
+          "mean_us": 19.212991957213827,
+          "stddev_us": 0.5157655231413883,
+          "min_us": 19.04640043935468,
+          "max_us": 20.84996161922332,
+          "tflops": 17.60537270021811,
+          "paired_speedup": 1.0,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 20.84996161922332
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 19.057178497314453
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 19.061221574482165
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 19.048050911195816
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 19.049094852648285
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 19.051788982592132
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 19.04640043935468
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 19.08008424859298
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 19.08816789325915
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 19.053006941272365
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 19.084126070926065
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 19.086821455704538
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.0070095062255859375,
+          "max_relative_l2": 0.00026296846750537977,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "cublaslt_default": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_0",
+          "config": {
+            "index": 0,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 17,
+            "split": 8,
+            "reduction": 2,
+            "stages": 9,
+            "swizzle": 0,
+            "prepare_seconds": 3.0889641493558884e-06
+          },
+          "median_us": 18.9965473978143,
+          "mean_us": 19.15429218968652,
+          "stddev_us": 0.5177511119679817,
+          "min_us": 18.98642267499651,
+          "max_us": 20.797440665108816,
+          "tflops": 17.663437095869693,
+          "paired_speedup": 1.0029552323595454,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 20.797440665108816
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 18.995199705425062
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 18.997895090203535
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 18.992274148123606
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 18.9965473978143
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 18.9965473978143
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 18.98642267499651
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 18.995199705425062
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 19.03292630848132
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 18.995200565883092
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 19.035620438425166
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 19.03023217853747
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.0070095062255859375,
+          "max_relative_l2": 0.00026296846750537977,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "cublaslt_tuned": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_1",
+          "config": {
+            "index": 1,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 15,
+            "split": 8,
+            "reduction": 2,
+            "stages": 12,
+            "swizzle": 0,
+            "prepare_seconds": 2.1138694137334824e-06
+          },
+          "median_us": 11.870814694298637,
+          "mean_us": 11.95783686702734,
+          "stddev_us": 0.28957862086228237,
+          "min_us": 11.863647073002184,
+          "max_us": 12.876800254539207,
+          "tflops": 28.26632616556272,
+          "paired_speedup": 1.6053719138983547,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 12.876800254539207
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 11.863647073002184
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 11.865383083537473
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 11.869866759688765
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 11.864515078269829
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 11.868854296409477
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 11.87271100503427
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 11.869722301677122
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 11.887078366037143
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 11.871762628908511
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 11.891416775978218
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 11.892284781245863
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.0070095062255859375,
+          "max_relative_l2": 0.00026296846750537977,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "cutlass": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cutlass_split8",
+          "config": {
+            "tile_id": 64,
+            "tile_nmk": [
+              64,
+              64,
+              16
+            ],
+            "split": 8,
+            "prepare_seconds": 2.5775982066988945e-05
+          },
+          "median_us": 13.029850129727965,
+          "mean_us": 13.13830132355995,
+          "stddev_us": 0.3735104262821645,
+          "min_us": 13.012247085571289,
+          "max_us": 14.323712348937988,
+          "tflops": 25.75197079469443,
+          "paired_speedup": 1.4627976247606485,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 14.323712348937988
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 13.012247085571289
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 13.018073859038177
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 13.025279998779297
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 13.018763282082297
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 13.031348475703487
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 13.020159721374512
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 13.04669120094993
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 13.042726340117278
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 13.028351783752441
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 13.04669120094993
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 13.045570585462782
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.0070095062255859375,
+          "max_relative_l2": 0.00026296846750537977,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "triton": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "triton_small",
+          "config": {
+            "tile": [
+              16,
+              64,
+              32
+            ],
+            "warps": 4,
+            "stages": 3,
+            "ptx": "triton_small.ptx",
+            "prepare_seconds": 0.3053423990495503
+          },
+          "median_us": 34.0980356389826,
+          "mean_us": 34.37418683008714,
+          "stddev_us": 0.8925524904272332,
+          "min_us": 34.09408092498779,
+          "max_us": 37.207040786743164,
+          "tflops": 9.840576259366353,
+          "paired_speedup": 0.5587902873420124,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 37.207040786743164
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 34.141091866926715
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 34.09687172282826
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 34.09408092498779
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 34.09919955513694
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 34.09687172282826
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 34.09663915634155
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 34.0945460579612
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 34.15272669358687
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 34.09408092498779
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 34.15040102871981
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 34.166691519997336
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.0071697235107421875,
+          "max_relative_l2": 0.0002633753712077252,
+          "graph_checks": 4,
+          "graph_passes": 4
+        }
+      },
+      "artifacts": "32x1024x5120/hot",
+      "library_versions": {
+        "cublas_api": 120201,
+        "cublaslt_api": 120201
+      }
+    },
+    {
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "cache": "hot",
+      "l2_bytes": 75497472,
+      "weight_copies": 1,
+      "weight_set_bytes": 67108864,
+      "roles": {
+        "cute": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "dsl_wide_k32",
+          "config": {
+            "requested_method": "dsl_wide_k32",
+            "shape": [
+              4096,
+              4096,
+              4096
+            ],
+            "cache_policy": "hot",
+            "dispatch_hit": false,
+            "evidence": null,
+            "selected_method": "dsl_wide_k32",
+            "tile": [
+              128,
+              256,
+              32
+            ],
+            "warps": [
+              2,
+              4,
+              1
+            ],
+            "stages": 2,
+            "split": 1,
+            "schedule": "default",
+            "raster_group": 0,
+            "raster_axis": "N",
+            "cache_all": false,
+            "output_ctas": 512,
+            "compute_ctas": 512,
+            "fill_ratio": 1.0,
+            "reason": "explicit",
+            "prepare_seconds": 0.00016567297279834747
+          },
+          "median_us": 1712.384045124054,
+          "mean_us": 1713.7383421262105,
+          "stddev_us": 2.583195576333714,
+          "min_us": 1711.2280130386353,
+          "max_us": 1717.5040245056152,
+          "tflops": 80.26175778929499,
+          "paired_speedup": 0.9985462031812424,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 1716.6080474853516
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 1711.616039276123
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 1713.1520509719849
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 1716.7359590530396
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 1711.4880084991455
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 1711.616039276123
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 1716.7359590530396
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 1711.359977722168
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 1715.1999473571777
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 1717.5040245056152
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 1711.2280130386353
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 1711.616039276123
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.00789642333984375,
+          "max_relative_l2": 0.00026142568408502184,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "cublas": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cublas",
+          "config": {
+            "api": "FAST_TF32",
+            "prepare_seconds": 4.651956260204315e-06
+          },
+          "median_us": 1711.1159563064575,
+          "mean_us": 1711.340328057607,
+          "stddev_us": 2.1310870487863216,
+          "min_us": 1709.175944328308,
+          "max_us": 1714.176058769226,
+          "tflops": 80.32123887656914,
+          "paired_speedup": 1.0,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 1714.0439748764038
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 1710.9999656677246
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 1709.439992904663
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 1713.7880325317383
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 1709.175944328308
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 1709.1959714889526
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 1714.0480279922485
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 1711.359977722168
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 1709.439992904663
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 1714.176058769226
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 1709.1840505599976
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 1711.2319469451904
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.00789642333984375,
+          "max_relative_l2": 0.00026142568408502184,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "cublaslt_default": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_0",
+          "config": {
+            "index": 0,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 24,
+            "split": 1,
+            "reduction": 0,
+            "stages": 3,
+            "swizzle": 0,
+            "prepare_seconds": 2.6489142328500748e-06
+          },
+          "median_us": 1709.6959948539734,
+          "mean_us": 1712.2243146101634,
+          "stddev_us": 3.6911442391658444,
+          "min_us": 1709.0439796447754,
+          "max_us": 1719.2959785461426,
+          "tflops": 80.38794843391955,
+          "paired_speedup": 0.999925247497659,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 1716.7359590530396
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 1709.3119621276855
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 1709.5680236816406
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 1713.7919664382935
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 1709.447979927063
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 1709.3199491500854
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 1716.480016708374
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 1709.5680236816406
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 1709.8239660263062
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 1714.303970336914
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 1719.2959785461426
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 1709.0439796447754
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.00789642333984375,
+          "max_relative_l2": 0.00026142568408502184,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "cublaslt_tuned": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "lt_0",
+          "config": {
+            "index": 0,
+            "status": 0,
+            "algo_id": 21,
+            "tile_id": 24,
+            "split": 1,
+            "reduction": 0,
+            "stages": 3,
+            "swizzle": 0,
+            "prepare_seconds": 2.6489142328500748e-06
+          },
+          "median_us": 1709.6959948539734,
+          "mean_us": 1712.2243146101634,
+          "stddev_us": 3.6911442391658444,
+          "min_us": 1709.0439796447754,
+          "max_us": 1719.2959785461426,
+          "tflops": 80.38794843391955,
+          "paired_speedup": 0.999925247497659,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 1716.7359590530396
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 1709.3119621276855
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 1709.5680236816406
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 1713.7919664382935
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 1709.447979927063
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 1709.3199491500854
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 1716.480016708374
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 1709.5680236816406
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 1709.8239660263062
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 1714.303970336914
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 1719.2959785461426
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 1709.0439796447754
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.00789642333984375,
+          "max_relative_l2": 0.00026142568408502184,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "cutlass": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "cutlass_default",
+          "config": {
+            "tile_id": 256,
+            "tile_nmk": [
+              256,
+              128,
+              16
+            ],
+            "split": 1,
+            "prepare_seconds": 3.3871037885546684e-05
+          },
+          "median_us": 1705.8560252189636,
+          "mean_us": 1707.320014635722,
+          "stddev_us": 2.267498946519811,
+          "min_us": 1705.348014831543,
+          "max_us": 1710.5720043182373,
+          "tflops": 80.56890583972839,
+          "paired_speedup": 1.0022483070794714,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 1710.2240324020386
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 1705.4719924926758
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 1705.6000232696533
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 1710.5720043182373
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 1706.112027168274
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 1707.6480388641357
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 1709.9519968032837
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 1705.6000232696533
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 1705.6000232696533
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 1710.3359699249268
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 1705.3760290145874
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 1705.348014831543
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.00789642333984375,
+          "max_relative_l2": 0.00026142568408502184,
+          "graph_checks": 4,
+          "graph_passes": 4
+        },
+        "triton": {
+          "status": "ok",
+          "correctness": "pass",
+          "candidate": "triton_large",
+          "config": {
+            "tile": [
+              64,
+              128,
+              32
+            ],
+            "warps": 4,
+            "stages": 3,
+            "ptx": "triton_large.ptx",
+            "prepare_seconds": 0.2964324720669538
+          },
+          "median_us": 1772.6080417633057,
+          "mean_us": 1775.6479978561401,
+          "stddev_us": 5.013017598857877,
+          "min_us": 1771.7759609222412,
+          "max_us": 1783.1679582595825,
+          "tflops": 77.53488094033598,
+          "paired_speedup": 0.9642955124582947,
+          "ratio_baseline": "cublas",
+          "rounds": 12,
+          "samples": [
+            {
+              "round": 1,
+              "seed": 823,
+              "us": 1781.2479734420776
+            },
+            {
+              "round": 2,
+              "seed": 1008,
+              "us": 1771.7759609222412
+            },
+            {
+              "round": 3,
+              "seed": 1019,
+              "us": 1772.6720571517944
+            },
+            {
+              "round": 4,
+              "seed": 823,
+              "us": 1782.7839851379395
+            },
+            {
+              "round": 5,
+              "seed": 1008,
+              "us": 1772.6720571517944
+            },
+            {
+              "round": 6,
+              "seed": 1019,
+              "us": 1772.544026374817
+            },
+            {
+              "round": 7,
+              "seed": 823,
+              "us": 1782.4000120162964
+            },
+            {
+              "round": 8,
+              "seed": 1008,
+              "us": 1772.2879648208618
+            },
+            {
+              "round": 9,
+              "seed": 1019,
+              "us": 1771.9039916992188
+            },
+            {
+              "round": 10,
+              "seed": 823,
+              "us": 1783.1679582595825
+            },
+            {
+              "round": 11,
+              "seed": 1008,
+              "us": 1772.0320224761963
+            },
+            {
+              "round": 12,
+              "seed": 1019,
+              "us": 1772.2879648208618
+            }
+          ],
+          "validation_checks": 4,
+          "validation_passes": 4,
+          "failed_elements": 0,
+          "max_abs_error": 0.00789642333984375,
+          "max_relative_l2": 0.00026142568408502184,
+          "graph_checks": 4,
+          "graph_passes": 4
+        }
+      },
+      "artifacts": "4096x4096x4096/hot",
+      "library_versions": {
+        "cublas_api": 120201,
+        "cublaslt_api": 120201
+      }
+    }
+  ],
+  "protocol": {
+    "min_event_ms": 10.0,
+    "screen_seed": 707,
+    "confirmation_seeds": [
+      823,
+      1008,
+      1019
+    ],
+    "rounds_per_case": 12,
+    "requested_backends": [
+      "cute",
+      "cublas",
+      "cublaslt",
+      "cutlass",
+      "triton"
+    ],
+    "timing": "unprofiled CUDA Graph events, paired NVML clocks"
+  }
+}

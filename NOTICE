@@ -1,0 +1,10 @@
+NVIDIA CUTLASS contributors own the NVIDIA code and notices retained in
+src/cute/tf32_gemm.py. The CUDA C++ baseline uses headers from NVIDIA CUTLASS
+v4.8.1 (2c85f497547eb441f0fe80bfb0fb2e6f9add1719), installed at build time.
+The pinned upstream license is reproduced in LICENSES/CUTLASS.txt.
+
+The CuTe DSL wheel, CUDA Toolkit, NVIDIA driver, cuBLAS and Triton are external
+dependencies distributed under their respective upstream terms. No dependency
+binary or source checkout is included in this repository. Original project code is licensed
+under the MIT License in LICENSE. The NVIDIA-derived kernel retains its
+BSD-3-Clause license and notice.

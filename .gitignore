@@ -1,0 +1,6 @@
+/.venv/
+/build/
+/runs/
+/results/
+/third_party/
+__pycache__/
